@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rest_Api_App">
         <activity
+            android:name=".product_activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
