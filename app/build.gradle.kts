@@ -57,5 +57,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.4")
 
 
+    //Image Loder
+    implementation("com.github.bumptech.glide:glide:5.0.5")
+
+
 
 }
