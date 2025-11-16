@@ -1,6 +1,7 @@
 package com.example.rest_api_app
 
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -16,11 +17,15 @@ class ProductAdapter(private val products: List<Product>) :
         parent: ViewGroup,
         viewType: Int
     ): ProductAdapter.ProductViewHolder {
-        TODO("Not yet implemented")
+
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.porduct_list,parent,false)
+        return ProductViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductAdapter.ProductViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
+        val product = products[position]
+        holder.bind(product)
     }
 
     override fun getItemCount(): Int {

@@ -1,20 +1,41 @@
+
 package com.example.rest_api_app
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class product_activity : AppCompatActivity() {
+class ProductActivity : AppCompatActivity() {
+
+    private lateinit var productViewModel: ProductViewModel
+    private lateinit var productAdapter: ProductAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_product)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        productAdapter = ProductAdapter(emptyList())
+
+        val refreshBtn: FloatingActionButton = findViewById(R.id.represhBtn)
+        refreshBtn.setOnClickListener {
+            startActivity(Intent(this@ProductActivity, ProductActivity::class.java))
+            finish()
+        }
+
+        val recyclerView: RecyclerView = findViewById(R.id.productRV)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = productAdapter
+
+        productViewModel.products.observe(this) { products ->
+            productAdapter.products= products
+            productAdapter.notifyDataSetChanged()
         }
     }
 }
